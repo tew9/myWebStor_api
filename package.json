@@ -1,0 +1,36 @@
+{
+  "name": "eccomerce-back-end",
+  "version": "1.0.0",
+  "description": "This is the backend for ecommerce using mern",
+  "main": "back-end api",
+  "scripts": {
+    "test": "npm test",
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/ttew/ecommerce-backend"
+  },
+  "keywords": [
+    "api",
+    "mern",
+    "react",
+    "node",
+    "mongodb",
+    "and",
+    "express"
+  ],
+  "author": "Tango",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "contentful": "^7.14.8",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.11",
+    "nodemon": "^2.0.6"
+  }
+}
