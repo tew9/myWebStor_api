@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const { isRequestValidated } = require('../validators/auth');
 
 module.exports.signup = (req, res) => {
   User.findOne({email: req.body.email})
@@ -46,7 +48,7 @@ module.exports.signup = (req, res) => {
         userName: `${firstName}.${lastName}`,
         role: 'business-owner'
       });
-      saveAccount(_user, res);
+      saveAccount(_user, res, role);
     }
 }
 
