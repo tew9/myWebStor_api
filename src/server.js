@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 //const adminRoutes = require('./routes/admin/auth')
 const userRoutes = require('./routes/auth')
+const categoryRoutes = require('./routes/categories');
 
 //--no-deprecation
 const app = express();
@@ -27,7 +28,7 @@ mongoose.connect(
 //add middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', userRoutes)
-//app.use('/api', adminRoutes)
+app.use('/api', categoryRoutes)
 
 
 app.listen(process.env.PORT, () => {
