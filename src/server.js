@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 //const adminRoutes = require('./routes/admin/auth')
 const userRoutes = require('./routes/auth')
 const categoryRoutes = require('./routes/categories');
+const productRoutes = require('./routes/products')
 
 //--no-deprecation
 const app = express();
@@ -29,6 +30,7 @@ mongoose.connect(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api', userRoutes)
 app.use('/api', categoryRoutes)
+app.use('/api', productRoutes)
 
 
 app.listen(process.env.PORT, () => {
