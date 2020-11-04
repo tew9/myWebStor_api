@@ -1,27 +1,35 @@
 const express = require('express');
-const shortid = require('shortid');
+const slugify = require('slugify');
+const productModel = require('../models/products');
 
 exports.addProducts = (req, res) => {
-  // const productObject = {
-  //   name: req.body.name,
-  //   slug: slugify(req.body.name),
-  //   price: req.body.price,
-  //   decription: req.body.description,
-  //   offers: req.body.offers,
-  //   productPicture: req.body.productPicture,
-  //   review: req.body.review,
-  //   createdBy: req.body.createdBy,
-  //   updatedBy: req.body.updatedBy,
-  //   category: req.body.updatedBy,
-  //   seller: req.body.seller
-  // }
 
-  // const product = new productModel(productObject);
-  // product.save((error, cat)=>{
-  //   error? res.status(400).json({error: error})
-  //   : res.status(201).json({ product})
-  // })
-  res.status(201).json({ file: req.file, body: req.body})
+  let productPictures = [];
+  if(req.files.length > 0){
+    productPictures = req.files.map(file => {
+      return {img: file.filename}
+    })
+  }
+
+  const {name, price, description, category, quantity } = req.body;
+
+  const productObject = {
+    name,
+    slug: slugify(req.body.name),
+    price,
+    description,
+    productPictures: productPictures,
+    quantity,
+    category,
+    createdBy: req.user._id
+  }
+
+  const product = new productModel(productObject);
+  product.save((error, product)=>{
+    error? res.status(400).json({error: error})
+    : res.status(201).json({ product})
+  })
+  // res.status(201).json({ file: req.files, body: req.body})
 }
 
 exports.getProducts = (req, res) => {
