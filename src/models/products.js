@@ -6,17 +6,17 @@ const productSchema = new mongoose.Schema({
   price: {type: Number, required: true},
   description: {type: String, required: true, trim: true, max: 5000},
   offers: {type: Number},
-  seller: {type: String},
-  productPictures: [{img: {type: string}}],
+  quantity: {type: Number, required:true},
+  productPictures: [{img: {type: String}}],
   review: [
     {
       userId: {type: mongoose.Schema.Types.ObjectId,ref: 'User'},
-      review: string
+      review: String
     }
   ],
-  createdBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  createdBy: [{type: mongoose.Schema.Types.ObjectId, ref: 'User', required:true}],
   updateAt: Date,
-  Category: [{type: mongoose.Schema.Types.ObjectId, ref:'Categories'}]
+  category: [{type: mongoose.Schema.Types.ObjectId, ref:'Categories', require: true}]
 }, {timestamps: true});
 
 module.exports = mongoose.model('Products', productSchema);
