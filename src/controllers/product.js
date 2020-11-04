@@ -1,9 +1,27 @@
 const express = require('express');
 const slugify = require('slugify');
 const productModel = require('../models/products');
+const categoryModel = require('../models/category');
+const { where } = require('../models/products');
+
+
+const fetchProduct = (products, _id=null) => {
+  const productList = []
+  let product;
+  products.map(prod => {
+    productList.push({
+      name: prod.name,
+      price: prod.price,
+      category: categoryModel.findOne({_id: prod.category[0]})
+      .exec((error, cat)=> {
+        return cat.name
+      })
+    })
+  })
+  return productList
+}
 
 exports.addProducts = (req, res) => {
-
   let productPictures = [];
   if(req.files.length > 0){
     productPictures = req.files.map(file => {
@@ -33,5 +51,11 @@ exports.addProducts = (req, res) => {
 }
 
 exports.getProducts = (req, res) => {
-  res.status(200).json({products});
+  productModel.find({})
+  .exec((error, products) => {
+    if(products){
+      const productList = fetchProduct(products, products[0].category);
+      res.status(200).json({productList})
+    }
+  })
 }
